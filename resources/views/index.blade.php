@@ -1,9 +1,11 @@
-@extends('layout')
+@extends('layouts.app')
 @section('content')
-    <h1>Hello, world!</h1>
-    <ul>
+    {{$posts->links()}}
+    <div class="row">
         @foreach($posts as $post)
-            <li>{{ $post->title }}</li>
+            <div class="col-3 mt-2">
+                @include('partials.post-card')
+            </div>
         @endforeach
-    </ul>
+    </div>
 @endsection
