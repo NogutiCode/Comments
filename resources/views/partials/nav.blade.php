@@ -13,12 +13,11 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{{ route('index') }}">Home</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('page1') }}">Page1</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('page2') }}">Page2</a>
-                </li>
+                @auth
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('home') }}">Admin</a>
+                    </li>
+                @endauth
             </ul>
 
             <!-- Right Side Of Navbar -->
