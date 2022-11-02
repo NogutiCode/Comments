@@ -34,11 +34,17 @@ class PostController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StorePostRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(StorePostRequest $request)
     {
-        //
+//        $post = new Post();
+//        $post->title = $request->input('title');
+//        $post->body = $request->input('body');
+        $post = new Post($request->validated());
+        $post->save();
+        return redirect()->route('home');
+
     }
 
     /**

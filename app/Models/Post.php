@@ -31,6 +31,8 @@ class Post extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['title', 'body'];
+
     public function getSnippetAttribute(){
         return substr($this->body, 0, 200) . '...';
     }

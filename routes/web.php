@@ -23,3 +23,5 @@ Route::get('/pages/page2', [PublicController::class, 'page2'])->name('page2');
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\PostController::class, 'index'])->name('home');
+Route::get('/posts/create', [App\Http\Controllers\PostController::class, 'create'])->name('posts.create');
+Route::post('/posts', [App\Http\Controllers\PostController::class, 'store'])->name('posts.store');

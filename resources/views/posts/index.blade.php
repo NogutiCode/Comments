@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <a href="#" class="btn btn-primary">Add Post</a>
+        <a href="{{route('posts.create')}}" class="btn btn-primary">Add Post</a>
        {{$posts->links()}}
         <table class="table table-striped table-hover">
             <thead>
