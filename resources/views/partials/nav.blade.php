@@ -15,7 +15,7 @@
                 </li>
                 @auth
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('home') }}">Admin</a>
+                        <a class="nav-link" href="{{ route('posts.index') }}">Admin</a>
                     </li>
                 @endauth
             </ul>

@@ -2,7 +2,8 @@
 
 @section('content')
     <div class="container">
-        <form action="{{route('posts.store')}}" method="POST" enctype="multipart/form-data">
+        <form action="{{route('posts.update', ['post' => $post])}}" method="POST">
+            @method('PUT')
             @csrf
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
@@ -11,7 +12,9 @@
                     class="form-control @error('title') is-invalid @enderror"
                     id="title"
                     placeholder="Title"
-                    name="title" value="{{old('title')}}" >
+                    name="title"
+                    value="{{old('title') ?? $post->title}}"
+                >
                 @error('title')
                     <div class="invalid-feedback">{{$message}}</div>
                 @enderror
@@ -23,20 +26,13 @@
                     class="form-control @error('body') is-invalid @enderror"
                     id="body"
                     rows="12"
-                    name="body">{{old('body')}}</textarea>
+                    name="body">{{old('body') ?? $post->body}}</textarea>
                 @error('body')
                     <div class="invalid-feedback">{{$message}}</div>
                 @enderror
             </div>
             <div class="mb-3">
-                <label for="image" class="form-label">Image</label>
-                <input type="file" id="image" name="image" class="form-control">
-                @error('image')
-                    <div class="invalid-feedback">{{$message}}</div>
-                @enderror
-            </div>
-            <div class="mb-3">
-                <input type="submit" class="btn btn-primary" value="Add post">
+                <input type="submit" class="btn btn-primary" value="Update">
             </div>
         </form>
     </div>

@@ -22,10 +22,14 @@
                         <td>{{$post->updated_at}}</td>
                         <td>
                             <div class="btn-group">
-                                <a href="#" class="btn btn-info">View</a>
-                                <a href="#" class="btn btn-warning">Edit</a>
-                                <a href="#" class="btn btn-danger">Delete</a>
+                                <a href="{{route('posts.show',['post'=>$post])}}" class="btn btn-info">View</a>
+                                <a href="{{route('posts.edit',['post'=>$post])}}" class="btn btn-warning">Edit</a>
+                                <button form="post-delete-form-{{$post->id}}" class="btn btn-danger">Delete</button>
                             </div>
+                            <form id="post-delete-form-{{$post->id}}" action="{{route('posts.destroy', ['post'=>$post])}}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                            </form>
                         </td>
                     </tr>
                 @endforeach
