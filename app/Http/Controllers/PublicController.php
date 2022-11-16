@@ -8,8 +8,12 @@ use Illuminate\Http\Request;
 class PublicController extends Controller
 {
     public function index(){
-        $posts = Post::paginate(12);
+        $posts = Post::latest()->paginate(12);
         return view('index', compact('posts'));
+    }
+
+    public function show(Post $post){
+        return view('show', compact('post'));
     }
 
     public function page1(){

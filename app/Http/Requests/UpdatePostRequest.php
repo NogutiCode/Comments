@@ -14,7 +14,7 @@ class UpdatePostRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth::check();
+        return Auth::user() == request()->route('post')->user;
     }
 
     /**

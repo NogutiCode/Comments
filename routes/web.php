@@ -16,12 +16,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [PublicController::class, 'index'])->name('index');
+Route::get('/post/{post}', [PublicController::class, 'show'])->name('show');
+
 Route::get('/pages/page1', [PublicController::class, 'page1'])->name('page1');
 Route::get('/pages/page2', [PublicController::class, 'page2'])->name('page2');
 
 
 
-Auth::routes();
+Auth::routes(['verify'=> true]);
 
 //Route::get('/home', [PostController::class, 'index'])->name('home');
 //Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
@@ -30,4 +32,7 @@ Auth::routes();
 //Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
 //Route::post('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
 //Route::post('/posts/{post}/delete', [PostController::class, 'destroy'])->name('posts.destroy');
-Route::resource('posts', PostController::class);
+Route::middleware(['verified', 'auth'])->group(function(){
+    Route::resource('posts', PostController::class);
+});
+

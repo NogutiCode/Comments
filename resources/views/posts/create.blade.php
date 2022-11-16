@@ -29,9 +29,9 @@
                 @enderror
             </div>
             <div class="mb-3">
-                <label for="image" class="form-label">Image</label>
-                <input type="file" id="image" name="image" class="form-control">
-                @error('image')
+                <label for="images" class="form-label">Images</label>
+                <input multiple type="file" id="images" name="images[]" class="form-control" accept="image/*">
+                @error('images')
                     <div class="invalid-feedback">{{$message}}</div>
                 @enderror
             </div>

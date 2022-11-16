@@ -9,6 +9,8 @@ use App\Http\Requests\UpdatePostRequest;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class PostController extends Controller
 {
@@ -19,7 +21,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::latest()->paginate();
+        $posts = Auth::user()->posts()->latest()->paginate();
         return view('posts.index', compact('posts'));
     }
 
@@ -45,13 +47,17 @@ class PostController extends Controller
 //        $post->title = $request->input('title');
 //        $post->body = $request->input('body');
         $post = new Post($request->validated());
+        $post->user()->associate(Auth::user());
         $post->save();
-        $image = new Image();
-        /** @var UploadedFile $file */
-        $file = $request->validated('image');
-        $image->path = Storage::url($file->store('public'));
-        $image->post()->associate($post);
-        $image->save();
+        if($request->has('images')) {
+            foreach ($request->validated('images') as $file) {
+                $image = new Image();
+                /** @var UploadedFile $file */
+                $image->path = Storage::url($file->store('public'));
+                $image->post()->associate($post);
+                $image->save();
+            }
+        }
         return redirect()->route('posts.index');
 
     }
@@ -64,6 +70,9 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
+        if(Auth::user() != $post->user){
+            throw new NotFoundHttpException();
+        }
         return view('posts.show', compact('post'));
     }
 
@@ -75,6 +84,9 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+        if(Auth::user() != $post->user){
+            throw new NotFoundHttpException();
+        }
         return view('posts.edit', compact('post'));
     }
 
@@ -102,6 +114,9 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        if(Auth::user() != $post->user){
+            throw new NotFoundHttpException();
+        }
         $post->delete();
         return redirect()->route('posts.index');
     }
