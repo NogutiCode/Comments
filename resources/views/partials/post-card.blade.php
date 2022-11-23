@@ -13,9 +13,17 @@
             <p class="card-text">{{$post->body}}</p>
         @endif
 
+        <a href="{{route('post.like', ['post'=>$post])}}" class="btn btn-primary">
+            @if($post->authHasLiked)
+                Unlike
+            @else
+                Like
+            @endif
+        </a>
     </div>
     <div class="card-footer">
         {{$post->user->name}}<br>
-        {{$post->created_at->diffForHumans()}}
+        {{$post->created_at->diffForHumans()}}<br>
+        <b>Likes:</b> {{$post->likes()->count()}}
     </div>
 </div>

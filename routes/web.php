@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
@@ -34,5 +35,6 @@ Auth::routes(['verify'=> true]);
 //Route::post('/posts/{post}/delete', [PostController::class, 'destroy'])->name('posts.destroy');
 Route::middleware(['verified', 'auth'])->group(function(){
     Route::resource('posts', PostController::class);
+    Route::get('/post/{post}/like', [LikeController::class, 'like'])->name('post.like');
 });
 
