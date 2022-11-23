@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PublicController::class, 'index'])->name('index');
 Route::get('/post/{post}', [PublicController::class, 'show'])->name('show');
+Route::get('/tag/{tag}', [PublicController::class, 'tag'])->name('tag');
 
 Route::get('/pages/page1', [PublicController::class, 'page1'])->name('page1');
 Route::get('/pages/page2', [PublicController::class, 'page2'])->name('page2');
@@ -36,5 +37,6 @@ Auth::routes(['verify'=> true]);
 Route::middleware(['verified', 'auth'])->group(function(){
     Route::resource('posts', PostController::class);
     Route::get('/post/{post}/like', [LikeController::class, 'like'])->name('post.like');
+
 });
 

@@ -14,7 +14,7 @@
         @endif
 
         <a href="{{route('post.like', ['post'=>$post])}}" class="btn btn-primary">
-            @if($post->authHasLiked)
+            @if(auth()->check() && $post->authHasLiked)
                 Unlike
             @else
                 Like
@@ -24,6 +24,9 @@
     <div class="card-footer">
         {{$post->user->name}}<br>
         {{$post->created_at->diffForHumans()}}<br>
-        <b>Likes:</b> {{$post->likes()->count()}}
+        <b>Likes:</b> {{$post->likes()->count()}}<br>
+        @foreach($post->tags as $tag)
+            <a href="{{route('tag', ['tag'=> $tag])}}">{{$tag->name}}</a>
+        @endforeach
     </div>
 </div>

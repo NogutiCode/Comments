@@ -60,4 +60,7 @@ class Post extends Model
            return $this->likes()->where('user_id', Auth::user()->id)->exists();
         });
     }
+    public function tags(){
+        return $this->belongsToMany(Tag::class);
+    }
 }

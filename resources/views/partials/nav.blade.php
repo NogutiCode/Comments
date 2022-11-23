@@ -19,7 +19,12 @@
                     </li>
                 @endauth
             </ul>
-
+            <form class="navbar-nav w-50 mx-5" method="GET" action="{{request()->route()->getName() == 'tag' ? route('tag', ['tag' => request()->route()->parameter('tag')]) : route('index')}}">
+                <div class="input-group">
+                    <input type="search" name="search" class="form-control" placeholder="Search...">
+                    <input type="submit" class="btn btn-primary" value="Search">
+                </div>
+            </form>
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ms-auto">
                 <!-- Authentication Links -->
