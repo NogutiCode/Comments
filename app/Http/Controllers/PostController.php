@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\ImageUpload;
 use App\Models\Image;
 use App\Models\Post;
 use App\Http\Requests\StorePostRequest;
@@ -51,11 +52,8 @@ class PostController extends Controller
         $post->save();
         if($request->has('images')) {
             foreach ($request->validated('images') as $file) {
-                $image = new Image();
-                /** @var UploadedFile $file */
-                $image->path = Storage::url($file->store('public'));
-                $image->post()->associate($post);
-                $image->save();
+                $path = $file->store('public');
+                ImageUpload::dispatch($post->id, $path);
             }
         }
         return redirect()->route('posts.index');
