@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\PostController;
@@ -37,6 +38,7 @@ Auth::routes(['verify'=> true]);
 Route::middleware(['verified', 'auth'])->group(function(){
     Route::resource('posts', PostController::class);
     Route::get('/post/{post}/like', [LikeController::class, 'like'])->name('post.like');
-
+    Route::post('/post/{post}/comment', [CommentController::class, 'comment'])->name('post.comment');
+    Route::post('/post/{post}/comment/{comment}/delete', [CommentController::class, 'delete'])->name('post.comment.delete');
 });
 
